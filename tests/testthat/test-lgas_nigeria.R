@@ -1,0 +1,36 @@
+# Copyright (C) 2019 Victor Ordu.
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+library(naijR)
+
+test_that("illegal input is caught early", {
+  expect_error(lgas_ng("Maryland"),
+               "One or more elements of 'ng.state' is not a State in Nigeria",
+               fixed = TRUE)
+})
+
+test_that("LGAs are returned correctly", {
+  res <- lgas_ng("Imo")
+  res2 <- lgas_ng(nam <- c("Borno", "Abia"))
+  
+  expect_match(res, "Owerri North", all = FALSE)
+  expect_length(res, 27L)
+  expect_type(res, "character")
+  expect_is(res, "character")
+  expect_is(res2, "list")
+  expect_type(res2, "list")
+  expect_named(res2, (nam))
+  expect_length(res2, 2)
+})
