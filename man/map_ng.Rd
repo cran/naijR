@@ -7,13 +7,17 @@
 map_ng(show.neighbours = FALSE, ...)
 }
 \arguments{
-\item{show.neighbours}{logical; \code{TRUE} to display borders of 
+\item{show.neighbours}{logical; \code{TRUE} to display borders of
 neighbouring countries.}
 
 \item{...}{Further arguments for function \code{\link[maps]{map}}}
 }
 \value{
-\code{NULL} invisibly; results in the drawing of a map of Nigeria.
+An object of class \code{map}, invisibly; as a side-effect,
+results in the drawing of a map of Nigeria.
+
+An object of class \code{maps} containing the data used to draw the
+map and which can be used for additional calls to \code{\link[maps]{map}}.
 }
 \description{
 A basic map of the Federal Republic of Nigeria.
@@ -23,6 +27,6 @@ This function is essentially a wrapper to \code{maps::map}.
 }
 \examples{
 map_ng() # Draw a map with default settings
-map_ng(TRUE) # Display portions of neighbouring countries' borders
+map_ng(show = TRUE) # Display portions of neighbouring countries' borders
 
 }
