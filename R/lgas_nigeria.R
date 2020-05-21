@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-globalVariables("lgas_nigeria")
+globalVariables(c("lgas_nigeria", "state", "lga"))
 
 #' Local Government Areas of Nigeria
 #'
@@ -28,11 +28,12 @@ globalVariables("lgas_nigeria")
 
 #' List Local Government Areas
 #'
-#' @param ng.state Character vector of length 1, whose value is the name of a
-#' State in the Federation of Nigeria. Default is \code{NA_character_}, in 
-#' which case all the countrys '774 Local Government Areas will be returned.
+#' @param ng.state Character; State(s) in the Federation of Nigeria. Default is
+#' \code{NA_character_}.
 #' 
-#' @return A character vector containing the names of Local Government Areas.
+#' @return If length of \code{ng.state} == 1L, a character vector containing 
+#' the names of Local Government Areas; otherwise a named list whose elements 
+#' are character vectors of the LGAs in each state.
 #' 
 #' @examples
 #' how_many_lgas <- function(state) {
@@ -44,23 +45,22 @@ globalVariables("lgas_nigeria")
 #' }
 #' how_many_lgas("Sokoto")
 #' how_many_lgas("Ekiti")
-
+#'
 #' @export
 lgas_ng <- function(ng.state = NA_character_) {
   stopifnot(is.character(ng.state))
   if (!all(is.na(ng.state))) {
-    if (isFALSE(all(ng.state %in% states())))
+    if (!is_state(ng.state))
       stop("One or more elements of 'ng.state' is not a State in Nigeria")
-    lst <- sapply(   # not safe
+    lst <- lapply(
       ng.state,
-      USE.NAMES = T,
-      simplify = F,
-      FUN = function(s)
-        with(lgas_nigeria, lga[state %in% s])
+      FUN = function(s) {
+        subset(lgas_nigeria, state %in% s, lga, TRUE)
+      }
     )
-    if (length(ng.state) == 1L) {
+    names(lst) <- ng.state
+    if (length(ng.state) == 1L)
       lst <- unname(unlist(lst))
-    }
     return(lst)
   }
   lgas_nigeria$lga

@@ -42,7 +42,17 @@ The development version can be obtained from
 remotes::install_github("BroVic/naijR")
 ```
 
-### Examples
+### Some simple operations
+
+#### Maps
+
+A major feature of this version of the packages is the introduction of
+various map drawing capabilities. To read more about this, read the
+vignette with this
+
+``` r
+vignette('nigeria-maps', 'naijR')
+```
 
 #### States
 
@@ -52,14 +62,25 @@ call `states()`
 ``` r
 library(naijR, quietly = TRUE)
 states()
-#>  [1] "Abia"        "Adamawa"     "Akwa Ibom"   "Anambra"     "Bauchi"     
-#>  [6] "Bayelsa"     "Benue"       "Borno"       "Cross River" "Delta"      
-#> [11] "Ebonyi"      "Edo"         "Ekiti"       "Enugu"       "Gombe"      
-#> [16] "Imo"         "Jigawa"      "Kaduna"      "Kano"        "Katsina"    
-#> [21] "Kebbi"       "Kogi"        "Kwara"       "Lagos"       "Nasarawa"   
-#> [26] "Niger"       "Ogun"        "Ondo"        "Osun"        "Oyo"        
-#> [31] "Plateau"     "Rivers"      "Sokoto"      "Taraba"      "Yobe"       
-#> [36] "Zamfara"
+#>  [1] "Abia"                      "Adamawa"                  
+#>  [3] "Akwa Ibom"                 "Anambra"                  
+#>  [5] "Bauchi"                    "Bayelsa"                  
+#>  [7] "Benue"                     "Borno"                    
+#>  [9] "Cross River"               "Delta"                    
+#> [11] "Ebonyi"                    "Edo"                      
+#> [13] "Ekiti"                     "Enugu"                    
+#> [15] "Federal Capital Territory" "Gombe"                    
+#> [17] "Imo"                       "Jigawa"                   
+#> [19] "Kaduna"                    "Kano"                     
+#> [21] "Katsina"                   "Kebbi"                    
+#> [23] "Kogi"                      "Kwara"                    
+#> [25] "Lagos"                     "Nasarawa"                 
+#> [27] "Niger"                     "Ogun"                     
+#> [29] "Ondo"                      "Osun"                     
+#> [31] "Oyo"                       "Plateau"                  
+#> [33] "Rivers"                    "Sokoto"                   
+#> [35] "Taraba"                    "Yobe"                     
+#> [37] "Zamfara"
 ```
 
 States from a given geo-political zone can also be selected
@@ -100,24 +121,21 @@ Want to create a function to check how many LGAs a particular State has?
 
 ``` r
 how_many_lgas <- function(state) {
-  require(naijR)
-  stopifnot(state %in% states())
-  cat(sprintf("No. of LGAs in %s State:", state),
-      length(lgas_ng(state)),
-      fill = TRUE)
+  n <- length(naijR::lgas_ng(state))
+  cat(state, "State has", n, "LGAs\n")
 }
 
 how_many_lgas("Sokoto")
-#> No. of LGAs in Sokoto State: 23
+#> Sokoto State has 23 LGAs
 how_many_lgas("Ekiti")
-#> No. of LGAs in Ekiti State: 16
+#> Ekiti State has 16 LGAs
 ```
 
 #### Working with phone numbers
 
 It is common to come across datasets where phone numbers are wrongly
-entered or misinterpreted by regular software like MS Excel. The
-function `fix_mobile()` helps with this.
+entered or misinterpreted by software like MS Excel. The function
+`fix_mobile()` helps with this.
 
 ``` r
 fix_mobile("8032000000")
@@ -140,8 +158,7 @@ are turned into missing values, e.g.
     "08123456789",
     "09064321987",
     "O8055577889"
-  ),
-  stringsAsFactors = FALSE
+  )
 ))
 #>   serialno       phone
 #> 1        1   123456789
@@ -162,11 +179,8 @@ fix_mobile(dat$phone)
 
 ## Future Work
 
-Some features to expect in the next minor update:
+Some enhancements to expect in future updates:
 
-  - The function `map_ng()` can draw a very basic map of Nigeria.
-    Expected features will include sub national divisions and capacity
-    to draw choropleth maps for plotting data.
   - Manipulation of phone numbers will provide options for the
     introduction of separators. Also the function will become more
     intelligent, pre-empting errors in data entry e.g. accepting the

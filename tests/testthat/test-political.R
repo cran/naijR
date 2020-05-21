@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-library(naijR)
-
 test_that("Invalid input terminates the function", {
   expect_error(states(gpz = 99))
   expect_error(states(gpz = NA))
@@ -28,4 +26,36 @@ test_that("Invalid input terminates the function", {
   expect_error(states(full.names = "full"))
   expect_error(states(full.names = NA))
   expect_error(states(full.names = NULL))
+})
+
+
+
+
+test_that("States can be identified in an object", {
+  ss.good <- ss.bad <- ss.na <- states()
+  ind.bad <- c(5, 7, 19)
+  ind.nas <- c(6, 19, 33)
+  ss.bad[ind.bad] <- c("big", "bad", "wolf")
+  all <- is_state(ss.good)
+  all2 <- is_state(ss.bad)
+  sel <- is_state(ss.good, test = 'selected')
+  sel2 <- is_state(ss.bad, test = 'selected')
+  ss.na[ind.nas] <- NA
+  minus.nas <- is_state(ss.na, test = 'selected', allow.na = FALSE)
+  sel.na <- is_state(ss.na, 'selected')
+  
+  expect_length(all, 1L)
+  expect_true(all)
+  expect_length(all2, 1L)
+  expect_false(all2)
+  expect_length(sel, 37L)
+  expect_equal(sum(sel), 37L)
+  expect_length(sel2, 37L)
+  expect_equal(sum(sel2), 34L)
+  expect_true(is_state(ss.na))
+  expect_length(is_state(ss.na, test = 'selected'), 37L)
+  expect_equal(sum(minus.nas), 34L)
+  expect_false(anyNA(minus.nas))
+  expect_equal(sum(sel.na), NA_integer_)
+  expect_equal(sum(is.na(sel.na)), length(ind.nas))
 })

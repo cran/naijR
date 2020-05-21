@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>nigeria-maps</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">nigeria-maps</h1>
+
+
+
+<p>The need for relatively easy-to-use tools in the R statistical environment for mapping data on Nigeria was a motivation for the development of this package. Not so much of low-level programming needs to be done by the user; rather a collection of pre-existing packages and idioms are brought together to enable a focus on actual data visualization.</p>
+<p>The main function for drawing Nigeria maps is <code>map_ng</code>. It uses data from the CIA World Database provided by the <code>mapdata</code> package as well as ESRI shapefiles from the World Bank to draw a simple maps of Nigeria.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(naijR)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">map_ng</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>To show the map without the state borders, set the first argument (<code>region</code>) to <code>NULL</code>. Thus, with all other arguments set to default values, that would be</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">map_ng</span>(<span class="ot">NULL</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAElElEQVR4nO3d7XLaMBQGYfX+b7qTpIHgGG+NdaTXZvdHpx/MkXgKbghq0v7YZm32BtITCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggaAtQ+GrFQQeX7vtmcVKlyyysktUYVfwd1+3221bIVvx+pnaf2HXef+3xw0ZLt10/6ju07dXNsxZo/V+w6vwSIhr6yaLu39oeH5z9dt+Os/x/6eIf4yvp4i9+X/r3r72gO0M+bfN7bvc/Jtv2U6nivZgF93+Z2R58TPfmTu9E1gT5utHzm7B329JrU8W7NA1oBWb3+Fu5g7KQuM5cPiFc/MI4GOjry56u3aZvoP6jvxMOvqq4OdLhcoAyfXKAQH4GwXhsRaNCcmnFH6vTZxesCfdRhOwLVjygcd7jj+xGofELdtA4JBAkECQQJBAm0XdrHQWk+Am2X91osCajXQZiLAvU7JnTNi3TsO6shQMGHFzKEBNou+roaIJR91RBo8LzpOxBo7Lj5QOl3SKDB86ZvoPMlf/p/Vwk/rTKbJx5oulD8eTCBRk6LWD/6hV3CBi4FFHbou3RWzAZiPzmZsoMrAZVsoN/Q6T4CTdlA6PtHL6xftIGrAJUtfxGgutVDD6TnLN9p8uzPA4UDzeYJB5rPkw50fETwFgSqHy1Q/YjgHQhUP3s2UO2/oucHKl7+9EDVq58dqHxxgcoXuLaPQPUrzAQasLZA5UtMBBqxtEDlawhUPiF6aYHq15gmNGThEwONWVeg+lUmAQ1aVqD6ZSbtVKDlKm3x6zGd5uOg9rjSsOf1CYDa4w+DVu23UPW7Cu3+tZPvS437hyEdaHHhaSPW3NjAnAl7hrf6NWEHEybsmb28FpXXE6j/d69amdbWf7usbkDt82p6eNra6MXvjT3R1gXo3yOn9wNofdjgVzYdgJbfmKiX0+xTI18V7aIDUoZP7uG1EJ/Yw1kpPsUf5r08PcYn9HxWjk/kAa2Eo/u36j9ZsXuFJJ7IAzZvB7T3MfR2QHufZu8GtPsq9HZAe59lbwm058Zl23ipvBMS7wi0axWBOt52QHFAYT55RwAE2r5Nmk8aUJzPrFMkq2/ozP9CpyvNAmq/fxb48Pkz7RhJa7f30/692575+BkJ9LBS+yL6ui6n2nw28pzE/SrcQi84K419n/v7NNTt0ZPflHe6Rx9AONJpNjorgSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggaC/kuxCF8qgS4IAAAAASUVORK5CYII=" /><!-- --></p>
+<p>It is possible to make maps of sub-national divisions by defining them via <code>region</code>. For example, <code>states(&quot;sw&quot;)</code> returns a character vector of the states in the South-West geopolitical zone (see <code>?states</code>). To display them on a map with a few embellishments like labelling and colour, write</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">map_ng</span>(<span class="kw">states</span>(<span class="st">&quot;sw&quot;</span>), <span class="dt">show.text =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="dv">4</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>A single state can also be drawn:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">kk &lt;-<span class="st"> &quot;Kebbi&quot;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">map_ng</span>(kk, <span class="dt">col =</span> <span class="dv">6</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>, <span class="dt">title =</span> <span class="kw">paste</span>(kk, <span class="st">&quot;State&quot;</span>))</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div id="choropleth-maps" class="section level2">
+<h2>Choropleth maps</h2>
+<p>Choropleth maps that display differences among regions can also be created with <code>map_ng</code>. There are a number of ways this can be done, depending on the kind of arguments supplied to the function:</p>
+<ul>
+<li>A data frame containing a column for the regions and at least one other for the data to be displayed, or</li>
+<li>An atomic vector for the regions and another for the data to be displayed.</li>
+</ul>
+<p>This map is built on categorical data (i.e. <code>factor</code>s); atomic vectors that are coercible to this class are also accepted. In the case of numeric data, notably those of type <code>double</code>, they can be coaxed into categories only if class boundaries are provided via the <code>breaks</code> argument.</p>
+<p>To demonstrate this, we will create a data frame with some meaningless data:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Create variables</span></a>
+<a class="sourceLine" id="cb5-2" title="2">ss &lt;-<span class="st"> </span><span class="kw">states</span>()</a>
+<a class="sourceLine" id="cb5-3" title="3">numStates &lt;-<span class="st"> </span><span class="kw">length</span>(ss)</a>
+<a class="sourceLine" id="cb5-4" title="4">vv &lt;-<span class="st"> </span><span class="kw">sample</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], numStates, <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co"># Create a data frame and view top rows</span></a>
+<a class="sourceLine" id="cb5-7" title="7">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">state =</span> ss, <span class="dt">var =</span> vv, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="kw">head</span>(dd)</a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt;       state var</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; 1      Abia   B</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt; 2   Adamawa   A</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt; 3 Akwa Ibom   E</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt; 4   Anambra   B</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt; 5    Bauchi   E</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt; 6   Bayelsa   B</span></a></code></pre></div>
+<div id="using-a-data-frame" class="section level3">
+<h3>Using a data frame</h3>
+<p>To draw this choropleth, we will use the data frame approach first:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">map_ng</span>(<span class="dt">data =</span> dd, <span class="dt">x =</span> var)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Note the following:</p>
+<ul>
+<li>The argument <code>var</code> is the name of the column of our data frame that has the variable to be mapped. It is found via the mechanism called <em>quasiquotation</em>; to explore this further see <code>?rlang::quasiquotation</code>.</li>
+<li>The colours darken sequentially from A through E and it follows the natural (alphabetical) ordering of the factor levels (i.e. category labels). To control this order upfront, create an <strong>ordered factor</strong> using any the various ways available in R. (See <code>?ordered</code>)</li>
+<li>Our variable <code>var</code> is actually a character vector, but internally is converted to a factor.</li>
+</ul>
+</div>
+<div id="using-atomic-vectors" class="section level3">
+<h3>Using atomic vectors</h3>
+<p>We can use the same data to make the same map, but with a different coding approach:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">map_ng</span>(<span class="dt">region =</span> ss, <span class="dt">x =</span> vv, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>It’s exactly same map as before, but this time, we used 2 vectors to provide the data – one for the regions (in this case the 36 States and FCT) and another for the categorization. We have also introduced some colouring with the <code>col</code> argument. Although it has the same data, if we try to use the column name from <code>dd</code>, we have an error.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">map_ng</span>(<span class="dt">region =</span> ss, <span class="dt">x =</span> var)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt; Error: One or more inputs for generating choropleth options are invalid</span></a></code></pre></div>
+</div>
+<div id="numerical-values" class="section level3">
+<h3>Numerical values</h3>
+<p>When the data to be categorized are numeric vectors, the categories have to be defined. To achieve this, the <code>breaks</code> argument has to be supplied. This is a numeric vector that describes class limits for grouping the values. The number of classes is <code>length(breaks) - 1</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">nn &lt;-<span class="st"> </span><span class="kw">runif</span>(numStates, <span class="dt">max =</span> <span class="dv">100</span>)  <span class="co"># random real numbers ranging from 0 - 100</span></a>
+<a class="sourceLine" id="cb9-2" title="2">bb &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">map_ng</span>(<span class="dt">region =</span> ss, <span class="dt">x =</span> nn, <span class="dt">breaks =</span> bb, <span class="dt">col =</span> <span class="st">&#39;YlOrRd&#39;</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>To get a more meaningful and interpretable legend, use the <code>categories</code> argument.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">map_ng</span>(</a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="dt">region =</span> ss,</a>
+<a class="sourceLine" id="cb10-3" title="3">  <span class="dt">x =</span> nn,</a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="dt">breaks =</span> bb,</a>
+<a class="sourceLine" id="cb10-5" title="5">  <span class="dt">categories =</span> <span class="kw">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;Medium&quot;</span>, <span class="st">&quot;High&quot;</span>),</a>
+<a class="sourceLine" id="cb10-6" title="6">  <span class="dt">col =</span> 3L</a>
+<a class="sourceLine" id="cb10-7" title="7">)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Note that various colour arguments have been used, some of them kind of cryptic. More details on how to use the colouring schemes, check the help page of <code>?map_ng</code>.</p>
+</div>
+</div>
+<div id="mapping-of-point-data" class="section level2">
+<h2>Mapping of point data</h2>
+<p>To show the distribution of point data on any the maps such as GIS location data, a different set of arguments is employed. Since point data requires a pair of coordinates to be accurate, both the <code>x</code> and <code>y</code> arguments MUST be provided. Once the function receives both coordinates, either as separate atomic vectors or as columns from a data frame, <code>map_ng</code> defaults to the mapping of points only in within the boundaries indicated by <code>region</code>. It looks like this:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">3.000</span>, <span class="fl">4.000</span>, <span class="fl">6.000</span>, <span class="fl">5.993</span>, <span class="fl">5.444</span>, <span class="fl">6.345</span>, <span class="fl">5.744</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">8.000</span>, <span class="fl">9.000</span>, <span class="fl">9.300</span>, <span class="fl">10.432</span>, <span class="fl">8.472</span>, <span class="fl">6.889</span>, <span class="fl">9.654</span>)</a>
+<a class="sourceLine" id="cb11-3" title="3"></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="kw">map_ng</span>(<span class="ot">NULL</span>, <span class="dt">x =</span> x, <span class="dt">y =</span> y)</a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAFVBMVEUAAAA6AAA6ADpmtv+Q2///25D////QMpyHAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAE6UlEQVR4nO3d6XLaQBAA4c3hvP8jp8A2hwC1Jc3sjlD3j1QOalZ8EQrHxm7/bLY2+gCqJxAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQ1AWoneqxUELpx32x2alS5iE/Ick1yvg7yDveV4eatuL3mRo8NXbcde7rwUlLtoefxI6NnTo7NmPN2xVD56cA0dA1i7Zrz/5w8/yX6wbO+vnQ+zvEV9b7Wzxe+peuv6AxQLc3Od/bpY/JNv+QCrxXo4C+b3O5o6+JXvzJ1eg9gU43mj5ylg57eU0KvFvjgJ6APL3+Jh5B30khM6cnxNonxqWBto68ffU27CDiB8VO3Pyq6t2BNlcXqIZPXaAiPgJhUQciUKc5OeO2FPTu4vsCnQo4HIHyRySO29z24xEofULetIAEggSCBIIEggSar9rzoGo+As1X77VYJaCojTBvChS3Teg9L9JlP1ktAlR480INIYHmK31dLSBU+6ohUOd5w49AoL7jxgNVv0Mz8z5+/w1ebOEBVJ8nELxC7AJUfLfK62kfvz43XP4JXW/JEdQYODeuxxlUfj+YQBumdQAquCU1b1iRA3groGKbvlNnlTmAXm9O7vNJUOzM4UApZ3Dc0PlJAs2+CuvyNDrnEtjr86P0MyjrP+R3BEo1SvsX9E2A8p5hdNyQfmggvAIkX6eLA93yvD5PDnsG3Z89AsGIIUCJrwJjgXq9sTpzCAVH//QMSkygJUdQbrZAW0ckm+V+6bj9AyW/j7l7oOz3edOBdvsaI26BoWfQDoB4wj6fQoet0BBAoBFPnr/W3sESAs330ca8Pj3V46PcXZ9BAuHSe1hDoPQJpZfu8Uw6qy4L7xioz7oC5a8yCKjTsgLlLzPoSAWartImv+5T7+dBq59UtvuVuj2udwDU7n9Ys+qGygO1dv3aydel+v3D0BVoxRv4kwtPW7zm1oqfQQ/D24o1N1Ub6HH29FqUXiTQT77O+lag82/tEqidr6abpz0bPfm9vt/GLQTo68yJ/vZnz4d1fmUTADT9xkRRTgPfibsp6SgCkGr41N28VsSn7OasKj65B7L+YVbGp+j+rDo+JTdolfp+tfkbkBavUImn5AabwwEtPYcOB7T0YXY0oMVXocMBLX2UHRJoyY3TDmNV9XZIHBFo0SoCBd62Q+WAivnU2wIg0PxtqvlUAyrnM2oXydMPdII/FIlpFFB7/FnB0+ffsG0krV0+T/v6tL3m+dMT6G6l9kn0eV2uanOu5z6J61W4Fb3gPKnv59zfu6EuZ0/9hnzS3XsDwpZ2c6CjEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEgj6D4xFijiAIUfHAAAAAElFTkSuQmCC" /><!-- --></p>
+<p>The function <code>map_ng</code> carried out a bounds check on point data and returns an error, and the points are not plotted, when the coordinates care beyond the region. For instance, using the same points provided earlier, if we try to plot them on a map of Kwara State,</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">map_ng</span>(<span class="st">&quot;Kwara&quot;</span>, <span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; Error in map_ng(&quot;Kwara&quot;, x = x, y = y): Coordinates are out of bounds of the map</span></a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFTklEQVR4nO3djXKbOhBAYfL+L32niX+vjQ9Iu2KFz5lOp8nYQnwBbMBtlx/72HL0BKonECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBCUD7TM/TMYATS10ACguXdjgaDsyf/bwabex5Ln/jf8zEJDgH5+N6M5lcYAXfa0GYkGAV32sgmJRgFdv55OKHfCL6PP95o/Gmi6F/3BQPOdeaTO9r2FQB/HdguCsQXCsZepjBKn+mHoid41ZkxywVP4yyNmIIqf4uWkYsOSvxJo5zrXFwqe4d7hvg1o/2jlhY4GKi90OFB1oeOBigsdfJDOmENsFYBKC5UAqiwUfAxqHa6uUODMes4cvgGob6SyQlWAygoJBIXNq3ugokJ1gIoKRc0qYpySQkGTihmmolApoIpCIVOKu7ZcT6jasaOcUMCEQtdJoLGj9VcOqJpQPaBit6QLAtUiKglUaT+r9jKfOWZTVYHKCAkECQSVBaryUlYXqAhR0Zf569DHG9UGSh99xPKT10CgY4cfsPyRQAd8cnggUNvaPTxl6weMQxt2v+/6dzIbPwf7oDtWqHdpm32al3iBbVhmSIOAlrd/3Pjcl31z5IFoPFDpN+/hS9r6swzfQ4ZtRC3LWa4b/fZZLqtftFYTaFnuB4Q9L0jLh69aGyS0EyhmKTMJDQF6eVrMEWTIcWgE0LsVCTlnGHHmkQ+0ug4Pa9exoq/vkmLbe5DePf7HZ1yP9527SyZSKtCGad/Wrfsda5JQ4i62a8oxR6T+QV5HTXv0rscGrVoCUdY2MXrzCR+pacTGU4vQB9NY0UQpu9i+WQav0pHDbVvxo/9tgdgBw3/We7fxg48asaNteVeTOoGNQ0a+cQwBul0AaVh+2mlC1DuHPY9defDfv4XTtqqJp1HDL6qsbj+/v0VdCQls9JXL1e1n0PJ7xv7bxFsOTb1veHuPIalA9+4vH3sX2AUU8Fox7v7NbYn7tqMeoKnuTrQus+OxM116b19kO1DdKxS4yKwHL6tfdHTWLajyJZzQBTYCBa7VuYBu7ysCGy2UCZSyLoOBEi/H1Liz0ruwzOtVpwBKfnxKYW8ZNgz0zUCb/seFKYECz+qQ6HuBtl3PqHDNvKX+yybLuz8GLOgkQP87j143mhUo/MLt2vt9gZ6+/XpmNC1Q10S23NBcGm9NnQFo61ObTpVOAJS7CmWA2m89fgtQ61QEwuelrsMJgHLXoRBQxwcgEj9sXwmodTa/996DZ3IfPGvgturtZsWA2o/UobMYMXBr1YROAxT70c2HYcNH7K1rRgJlPnnQiL11XfcQKO+544bsrOO6R8bKTAIE93KSXsF4yYe0PPx++94ngEJ/63lMD59rfrrsfr91+qz1NWfz924fjL9/ef3u5VfXnYpdU8kcPLzlKvfzOHOBrj0fbJan/S9tmZmDnyGBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBoP8AyrFBcH/H7lwAAAAASUVORK5CYII=" /><!-- --></p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>This vignette provided an initial look at the mapping facilities currently available in the <code>naijR</code> package. Additional development is going on to provide the user with more granular control. This is an open source project, and contributions are welcome.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,11 +1,13 @@
 Package: naijR
 Type: Package
 Title: Operations to Ease Data Analyses Specific to Nigeria
-Version: 0.0.7
-Date: 2020-03-09
+Version: 0.1.0
+Date: 2020-05-21
 Depends: R (>= 3.6)
-Imports: maps (>= 3.3.0), mapdata (>= 2.3.0)
-Suggests: testthat, covr, readxl
+Imports: RColorBrewer (>= 1.1.2), magrittr (>= 1.5), mapdata (>=
+        2.3.0), maps (>= 3.3.0), rgdal (>= 1.4.4), rlang (>= 0.4.0),
+        tools (>= 3.6.3)
+Suggests: testthat, covr, readxl, knitr, rmarkdown
 Authors@R: person("Victor", "Ordu", 
               email = "victorordu@outlook.com",
               role = c("aut", "cre"),
@@ -16,10 +18,11 @@ Description: A set of convenience functions as well as geographical/political
 License: GPL-3
 LazyData: TRUE
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
+VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-03-11 13:41:22 UTC; Admn
+Packaged: 2020-05-21 15:17:22 UTC; Admn
 Author: Victor Ordu [aut, cre] (<https://orcid.org/0000-0003-3716-0668>)
 Maintainer: Victor Ordu <victorordu@outlook.com>
 Repository: CRAN
-Date/Publication: 2020-03-11 14:00:05 UTC
+Date/Publication: 2020-05-21 15:40:02 UTC
