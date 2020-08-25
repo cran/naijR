@@ -1,8 +1,8 @@
-8ec48260a5740fb6f00f5ec8c23f2c68 *DESCRIPTION
-7afaf8f0b5ebc3d5df145f06f2c93cef *NAMESPACE
-0e770d5530ec2c964e0cc19cbf336b68 *NEWS.md
-6d2af9aae350ca2a85c8c03db8a4ebf3 *R/lgas_nigeria.R
-5cc9b0007c7d1fc77d0bef07078f3dac *R/map_nigeria.R
+817b8b0e6a8c7c2e5e8db1c326134102 *DESCRIPTION
+be8155e4bee88b762c7c0e99f9cdeedd *NAMESPACE
+24d57a3526b35a10a6ee2ebbeae04a06 *NEWS.md
+c8eb596e00ce20a053c87abc14927515 *R/lgas_nigeria.R
+86e7b46166faefb7abf592a3f16b01b4 *R/map_nigeria.R
 3ca1060bd3101479822a6ba144895dd4 *R/naijR-package.R
 c3e103fb1a7a608adc0e3900cddadf7d *R/numbers.R
 c9751dcdcbab4cb37eea6e402ff8c1a4 *R/political.R
@@ -13,7 +13,7 @@ dca71f0b5c1f7a62a3846b2ecdc8700d *README.md
 4c38568f194d390a35cd42177de5d0ea *data/lgas_nigeria.rda
 8764b2063dbba8639d8aef910f31590b *inst/doc/nigeria-maps.R
 b7eea1f1ac7bff07fb23d7d3c3563ab1 *inst/doc/nigeria-maps.Rmd
-81dc281db6a194beb2de0819612b7661 *inst/doc/nigeria-maps.html
+2cc4e70f1b6c401c0b3d4fd442558ce6 *inst/doc/nigeria-maps.html
 c506fc9ef962a66e181fef305649eec7 *inst/extdata/ng_admin/Readme.txt
 ae3b3df9970b49b6523e608759bc957d *inst/extdata/ng_admin/nga_admbnda_adm1_osgof_20161215.CPG
 a1c319352f86cad2e93d350ae56509c6 *inst/extdata/ng_admin/nga_admbnda_adm1_osgof_20161215.dbf
@@ -37,7 +37,7 @@ c3978703d8f40f2679795335715e98f4 *man/figures/lifecycle-experimental.svg
 9dfd6e683a26689cb9049abaad547dec *man/is_state.Rd
 760eb74a2f8a17c1f6ec5d7a767d013e *man/lgas_ng.Rd
 7ec25178931f1084e5ea5669695adbed *man/lgas_nigeria.Rd
-95d2a410808d85491390609a32e247c0 *man/map_ng.Rd
+fe8c5867f357cdcda3d538bd8da744c7 *man/map_ng.Rd
 18f70e523b0be35a768cdd92fec8c4cb *man/naijR.Rd
 99f798ded1f5f529f605aefb9a34329b *man/states.Rd
 49adf9da47bc1922094974ddb8515e16 *tests/testthat.R
@@ -45,8 +45,8 @@ c3978703d8f40f2679795335715e98f4 *man/figures/lifecycle-experimental.svg
 15595e3d8833c2c343d6adde1c68bd76 *tests/testthat/data/map_ycoord.rds
 5d4df388cbefbf2fe269213f993c23bc *tests/testthat/data/numbers.xlsx
 3f2d90b4820122f77b38f6918973387e *tests/testthat/data/pvc2015.rds
-e98f45025c4411ce686579f70b3c3532 *tests/testthat/test-lgas_nigeria.R
-f2956abce599bfe54b4ee46c3e0f1a99 *tests/testthat/test-map_nigeria.R
+6c8008fb035027bc2cf283e702d22d9c *tests/testthat/test-lgas_nigeria.R
+a44f384c99c4f38e64ffdaf206dfc724 *tests/testthat/test-map_nigeria.R
 9a17f4c201e4d2e39bb1549ac809daec *tests/testthat/test-numbers.R
 2b202cfdb6285e1bd99bf0784f904971 *tests/testthat/test-political.R
 b7eea1f1ac7bff07fb23d7d3c3563ab1 *vignettes/nigeria-maps.Rmd

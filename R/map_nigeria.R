@@ -95,9 +95,11 @@ globalVariables(".")
 #' results in the drawing of a map of Nigeria.
 #'
 #' @examples
+#' \dontrun{
 #' map_ng() # Draw a map with default settings
 #' map_ng(states("sw"))
 #' map_ng("Kano")
+#' }
 #'
 #' @return An object of class \code{maps} containing the data used to draw the
 #' map and which can be used for additional calls to \code{\link[maps]{map}} or
@@ -262,7 +264,9 @@ map_ng <- function(region = character(),
     return(FALSE)
   arg <- enexpr(val)
   if (!no.region &&
-      is.character(region) && is_state(region) && !is_null(arg))
+      is.character(region) && 
+      suppressWarnings(is_state(region)) && 
+      !is_null(arg))
     return(TRUE)
   if (!is.data.frame(data))
     return(FALSE)
@@ -281,14 +285,14 @@ map_ng <- function(region = character(),
 
 
 
-
+#' @import mapdata
 #' @importFrom maps SpatialPolygons2map
 .getMapData <- function(region)
 {
   stopifnot(is.character(region))
   if (identical(region, 'Nigeria'))
     return("mapdata::worldHires")
-  if (!is_state(region)) {
+  if (!suppressWarnings(is_state(region))) {
     ss <- paste(region, collapse = ', ')
     stop("Invalid region(s) for the map: ", ss)
   }
@@ -338,7 +342,7 @@ map_ng <- function(region = character(),
     if (is.factor(x))
       x <- as.character(x)
     if (is.character(x))
-      is_state(x)
+      suppressWarnings(is_state(x))
     else
       FALSE
   }, logical(1))
@@ -397,7 +401,7 @@ map_ng <- function(region = character(),
 #' @import magrittr
 .assertListElements <- function(x) {
   stopifnot(c('region', 'value', 'breaks') %in% names(x))
-  region.valid <- is_state(x$region)
+  region.valid <- suppressWarnings(is_state(x$region))
   value.valid <- 
     x$value %>% 
     {
@@ -526,7 +530,9 @@ map_ng <- function(region = character(),
 # properly applied to the respective regions and not recycled.
 .reassignColours <- function(names, regions, in.colours)
 {
-  stopifnot(is.character(names), is_state(regions), .isHexColor(in.colours))
+  stopifnot(is.character(names), 
+            suppressWarnings(is_state(regions)),
+            .isHexColor(in.colours))
   out.colours <- new.names <- rep(NA, length(names))
   for (i in seq_along(regions)) {
     regx <- .regexDuplicatedPolygons(regions[i])
