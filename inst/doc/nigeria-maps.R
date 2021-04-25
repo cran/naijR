@@ -10,10 +10,13 @@ library(naijR)
 map_ng()
 
 ## ----outline-map--------------------------------------------------------------
-map_ng(NULL)
+map_ng("Nigeria")
+
+## ----all-lga-map--------------------------------------------------------------
+map_ng(lgas())
 
 ## ----south-west, warning=FALSE------------------------------------------------
-map_ng(states("sw"), show.text = TRUE, col = 4)
+map_ng(states(gpz = "sw"), show.text = TRUE, col = 4)
 
 ## ---- singleton, warning=FALSE------------------------------------------------
 kk <- "Kebbi"
@@ -30,10 +33,10 @@ dd <- data.frame(state = ss, var = vv, stringsAsFactors = FALSE)
 head(dd)
 
 ## ----df-approach--------------------------------------------------------------
-map_ng(data = dd, x = var)
+map_ng(data = dd, x = var, show.text = FALSE)
 
 ## ----vec-approach-------------------------------------------------------------
-map_ng(region = ss, x = vv, col = "red")
+map_ng(region = ss, x = vv, col = "red", show.text = FALSE)
 
 ## ----error-map, error=TRUE----------------------------------------------------
 map_ng(region = ss, x = var)
@@ -42,7 +45,7 @@ map_ng(region = ss, x = var)
 nn <- runif(numStates, max = 100)  # random real numbers ranging from 0 - 100
 bb <- c(0, 40, 60, 100)
 
-map_ng(region = ss, x = nn, breaks = bb, col = 'YlOrRd')
+map_ng(region = ss, x = nn, breaks = bb, col = 'YlOrRd', show.text = FALSE)
 
 ## ----good-legend--------------------------------------------------------------
 map_ng(
@@ -50,14 +53,15 @@ map_ng(
   x = nn,
   breaks = bb,
   categories = c("Low", "Medium", "High"),
-  col = 3L
+  col = 3L, 
+  show.text = FALSE
 )
 
 ## ----pointmap-----------------------------------------------------------------
 x <- c(3.000, 4.000, 6.000, 5.993, 5.444, 6.345, 5.744)
 y <- c(8.000, 9.000, 9.300, 10.432, 8.472, 6.889, 9.654)
 
-map_ng(NULL, x = x, y = y)
+map_ng("Nigeria", x = x, y = y)
 
 ## ----out-of-bounds, error=TRUE------------------------------------------------
 map_ng("Kwara", x = x, y = y)
