@@ -1,10 +1,10 @@
-93596c3566a97b7e00be698bcac389b3 *DESCRIPTION
-e423b5762b48ad027158cc2243283a4d *NAMESPACE
-a664593099c8c662f12af642f84444e8 *NEWS.md
+eda91b0af9cb4ab4cc7aebb7d5c5c2e9 *DESCRIPTION
+fe3ac0435faad55c53548a18d8ade8ef *NAMESPACE
+4172bb86b27c30d17431f6c13e8e95d0 *NEWS.md
 17c6c544d3775b40fe31fd8763b51de5 *R/map_nigeria.R
 3ca1060bd3101479822a6ba144895dd4 *R/naijR-package.R
 c3e103fb1a7a608adc0e3900cddadf7d *R/numbers.R
-4f2f66804278ad198de53f91c8e8831a *R/regions.R
+445a41c718c8940bf5e4e969626b47da *R/regions.R
 d0feed1418227690c7ff57aebdb10ed8 *R/sysdata.rda
 7bff9f1ab167641c24ad52036e1fef9f *R/zzz.R
 c8bd4288c9b599f680d4f5159a9e757d *README.md
@@ -12,7 +12,7 @@ c8bd4288c9b599f680d4f5159a9e757d *README.md
 4f170dc7e5c7cbac6597ac40747ad522 *data/lgas_nigeria.rda
 f39be222cc19d288370c88a36e7e6e26 *inst/doc/nigeria-maps.R
 75773e12969248cdc56ead3bc6b940f2 *inst/doc/nigeria-maps.Rmd
-bfe5d43e921794b82b530f1b71cd4735 *inst/doc/nigeria-maps.html
+3b36f11082afe08a7b396fc082a28b51 *inst/doc/nigeria-maps.html
 cb1e46f469cfbbbde29c8b5113e1d789 *man/figures/lifecycle-archived.svg
 c0d2e5a54f1fa4ff02bf9533079dd1f7 *man/figures/lifecycle-defunct.svg
 a1b8c987c676c16af790f563f96cbb1f *man/figures/lifecycle-deprecated.svg
