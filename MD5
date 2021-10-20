@@ -1,7 +1,7 @@
-b8ab9a304cb49e7fdfe0f3c6e89e1097 *DESCRIPTION
+3a282fd5576e22ee9711ca9266020461 *DESCRIPTION
 3bab2a6a605ed169c412a9eefd361624 *NAMESPACE
-74cb8f08e45b66deec194c79a767268c *NEWS.md
-16df5cb40af7784d12213f180467f8f4 *R/class-regions.R
+7e9a9c20d4e5ed030d9b18f6b1deb349 *NEWS.md
+4e8b468677317bf9d90c949f751e46a0 *R/class-regions.R
 b144c8925d5499e69e8118b13ed35ff6 *R/isregion.R
 6f06d11c6db27d30f59665641ac34018 *R/lgas_nigeria.R
 cab6e7f6b84138c7fe40bcb0fbed652a *R/map_nigeria.R
@@ -10,12 +10,12 @@ e1b7a237a73b6624b0f7cf1c0f37b5e1 *R/methods-fix_region.R
 3ca1060bd3101479822a6ba144895dd4 *R/naijR-package.R
 69325c4578fac5e00365cf0329516451 *R/sysdata.rda
 7bff9f1ab167641c24ad52036e1fef9f *R/zzz.R
-bc8276a0e225dea158fbfff4c02719be *README.md
+17861fbfccbed843f4a5ffd0f6c527c1 *README.md
 f14d4117f7bacbf4b2d941c2f7e1e2c6 *build/vignette.rds
 1260bb65b988dff937da798332ae5391 *data/lgas_nigeria.rda
 f39be222cc19d288370c88a36e7e6e26 *inst/doc/nigeria-maps.R
 516c3f806f77eb35bde1862cd33d8951 *inst/doc/nigeria-maps.Rmd
-48618d7e312599c079c47b467e8c4cd2 *inst/doc/nigeria-maps.html
+063fb64722a31d0e6059317cdade5155 *inst/doc/nigeria-maps.html
 6044fefea3e15f549990e9012e9137b8 *man/coercion.Rd
 cb1e46f469cfbbbde29c8b5113e1d789 *man/figures/lifecycle-archived.svg
 c0d2e5a54f1fa4ff02bf9533079dd1f7 *man/figures/lifecycle-defunct.svg
@@ -43,8 +43,8 @@ c29b95ab9125f8a7722f6c32ee4a660c *man/is_state.Rd
 bb1ead507d8356e1b673764fb71a5233 *tests/testthat/data/pvc2015.rds
 3f2d90b4820122f77b38f6918973387e *tests/testthat/data/pvc2015_badcolumn.rds
 21a9b6dc47a4356a24a79458962b5f20 *tests/testthat/test-class-regions.R
-7d3e5e1d0272a16fe1fe4857e68a4bca *tests/testthat/test-isregion.R
+0b478de2a83649198c4025bc7fad94d2 *tests/testthat/test-isregion.R
 9951da58ab312aa1ffb32ed288f43013 *tests/testthat/test-map_nigeria.R
 27f17ed85134465dff00cf69bbfb599e *tests/testthat/test-methods-fix_region.R
-27252cf3dd550ca156ed2d6027788a45 *tests/testthat/test-mobile.R
+0f43c71e19c0ce12eb981d8c344b91b5 *tests/testthat/test-mobile.R
 516c3f806f77eb35bde1862cd33d8951 *vignettes/nigeria-maps.Rmd
