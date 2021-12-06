@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-globalVariables(c("lgas_nigeria", "state", "lga"))
+globalVariables(c("lgas_nigeria", "state", "lga", "gpz"))
 
 #' States of the Federal Republic of Nigeria
 #' 
@@ -48,7 +48,7 @@ states <- function(states, gpz = NULL, all = TRUE, warn = TRUE)
               call. = FALSE)
     return(new_states(states))
   }
-  stl <- .getAllStates()
+  stl <- getAllStates()
   if (!all)
     stl$fct <- NULL
   if (!is.null(gpz) && missing(states)) {
@@ -64,6 +64,40 @@ states <- function(states, gpz = NULL, all = TRUE, warn = TRUE)
   new_states(ss)
 }
 
+
+
+
+
+#' @importFrom magrittr %>%
+#' @importFrom magrittr %$%
+getAllStates <- function(named = TRUE)
+{
+  stopifnot(
+    length(named) == 1L,
+    is.logical(named),
+    !is.na(named)
+  )
+  zones <- lgas_nigeria$gpz %>% 
+    unique %>% 
+    sort
+  ss <- sapply(zones, function(zn) {
+    lgas_nigeria %$%
+      {
+        state[gpz == zn]
+      } %>% 
+      unique
+  })
+  stopifnot(!is.null(ss))
+  if (!named)
+    return({
+      ss %>% 
+        unlist %>% 
+        unname %>% 
+        sort
+    })
+  names(ss) <- sub("\\.state", "", names(ss))
+  ss
+}
 
 
 
@@ -284,7 +318,8 @@ as_lga <- function(x) {
     is_state %>% 
     which %>% 
     extract(ll, .) %>% 
-    unclass
+    unclass %>% 
+    unique       # because Nasarawa exists in 2 different States
 }
 
 
