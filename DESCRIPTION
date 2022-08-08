@@ -1,9 +1,9 @@
 Package: naijR
 Type: Package
 Title: Operations to Ease Data Analyses Specific to Nigeria
-Version: 0.4.0
-Date: 2022-01-28
-Depends: R (>= 3.6), methods, utils
+Version: 0.4.3
+Date: 2022-07-21
+Depends: R (>= 3.6), grDevices, methods, utils
 Imports: RColorBrewer (>= 1.1.2), lifecycle (>= 0.2.0), magrittr (>=
         1.5), mapdata (>= 2.3.0), maps (>= 3.3.0), rgdal (>= 1.4.4),
         rlang (>= 0.4.0)
@@ -19,14 +19,14 @@ Description: A set of convenience functions as well as geographical/political
 License: GPL-3
 LazyData: TRUE
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 RdMacros: lifecycle
 URL: https://brovic.github.io/naijR/
 BugReports: https://github.com/BroVic/naijR/issues
 NeedsCompilation: no
-Packaged: 2022-01-28 15:42:10 UTC; Admn
+Packaged: 2022-07-22 13:19:48 UTC; Admn
 Author: Victor Ordu [aut, cre] (<https://orcid.org/0000-0003-3716-0668>)
 Maintainer: Victor Ordu <victorordu@outlook.com>
 Repository: CRAN
-Date/Publication: 2022-01-28 17:00:05 UTC
+Date/Publication: 2022-08-08 11:00:05 UTC
