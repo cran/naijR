@@ -29,11 +29,11 @@ numStates <- length(ss)
 vv <- sample(LETTERS[1:5], numStates, TRUE)
 
 # Create a data frame and view top rows
-dd <- data.frame(state = ss, var = vv, stringsAsFactors = FALSE)
+dd <- data.frame(state = ss, letter = vv)
 head(dd)
 
 ## ----df-approach--------------------------------------------------------------
-map_ng(data = dd, x = var, show.text = FALSE)
+map_ng(data = dd)
 
 ## ----vec-approach-------------------------------------------------------------
 map_ng(region = ss, x = vv, col = "red", show.text = FALSE)
