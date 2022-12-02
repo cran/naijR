@@ -36,20 +36,20 @@ head(dd)
 map_ng(data = dd)
 
 ## ----vec-approach-------------------------------------------------------------
-map_ng(region = ss, x = vv, col = "red", show.text = FALSE)
+map_ng(region = states(), x = vv, col = "red", show.text = FALSE)
 
 ## ----error-map, error=TRUE----------------------------------------------------
-map_ng(region = ss, x = var)
+map_ng(region = states(), x = var)
 
 ## ----numeric-choropleth-------------------------------------------------------
 nn <- runif(numStates, max = 100)  # random real numbers ranging from 0 - 100
 bb <- c(0, 40, 60, 100)
 
-map_ng(region = ss, x = nn, breaks = bb, col = 'YlOrRd', show.text = FALSE)
+map_ng(region = states(), x = nn, breaks = bb, col = 'YlOrRd', show.text = FALSE)
 
 ## ----good-legend--------------------------------------------------------------
 map_ng(
-  region = ss,
+  region = states(),
   x = nn,
   breaks = bb,
   categories = c("Low", "Medium", "High"),
