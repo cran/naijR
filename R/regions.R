@@ -1,19 +1,10 @@
-# Copyright (C) 2019-2021 Victor Ordu.
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>
+# Source file: regions.R
+#
+# Copyright (C) 2019-2023 Victor Ordu.
 
-globalVariables(c("lgas_nigeria", "state", "lga", "gpz"))
+globalVariables(c("lgas_nigeria", "state", "lga"))
+
+# States ----
 
 #' Create an Object for the States of Nigeria
 #' 
@@ -57,13 +48,14 @@ states <- function(states, gpz = NULL, all = TRUE, warn = TRUE)
     num.missed <- sum(!is_state(states))
     
     if (num.missed) {
-      if (warn) {
+      if (warn && isFALSE(.is_nested_fix_dont_warn())) {
         abujas <- match("Abuja", states)
         
         if (!is.na(abujas))
           cli::cli_warn(
             "'Abuja' in position(s) {paste(abujas, collapse = ', ')}
-             is not a State. Use 'Federal Capital Territory' instead."
+             is not a State. Instead, use 'Federal Capital Territory'
+            or its acronym."
           )
         
         if (is.na(abujas) || num.missed > length(abujas))
@@ -117,24 +109,18 @@ states <- function(states, gpz = NULL, all = TRUE, warn = TRUE)
 
 get_all_states <- function(named = TRUE)
 {
-  stopifnot(
-    length(named) == 1L,
-    is.logical(named),
-    !is.na(named)
-  )
+  stopifnot(exprs = {
+    length(named) == 1L
+    is.logical(named)
+    ! is.na(named)
+  })
   
-  .subset_states_by_zone <- function(zone) {
-    zonalstates <- with(lgas_nigeria, state[gpz == zone])
-    unique(zonalstates)
+  states.by.zone <- stateList()
+  
+  if (!named) {
+    s <- sort(unlist(states.by.zone, use.names = FALSE))
+    return(s)
   }
-  
-  data("lgas_nigeria", package = "naijR", envir = environment())
-  zones <- sort(unique(lgas_nigeria$gpz))
-  states.by.zone <- sapply(zones, .subset_states_by_zone)
-  stopifnot(!is.null(states.by.zone))
-  
-  if (!named)
-    return( sort(unname(unlist(states.by.zone))) )
   
   names(states.by.zone) <- sub("\\.state", "", names(states.by.zone))
   states.by.zone
@@ -142,11 +128,44 @@ get_all_states <- function(named = TRUE)
 
 
 
+# Subsets the table of LGAs, returning a data frame 
+# with rows filtered by only the given LGAs
+.subset_states_by_lga <- function(l)
+{
+  stopifnot(is.character(l))
+  with(lgas_nigeria, state[lga %in% l])
+}
+
+
+
+
+.list_states_by_lga <- function(l)
+{
+  stopifnot(all(is_lga(l)))
+  ss <- lapply(l, .subset_states_by_lga)
+  names(ss) <- l
+  ss
+}
+
+
+
 
 .subset_lgas_by_state <- function(s)
 {
+  stopifnot(is.character(s))
   with(lgas_nigeria, lga[state %in% s])
 }
+
+
+
+
+.list_lgas_by_state <- function(s) {
+  stopifnot(all(is_state(s)))
+  ll <- lapply(s, .subset_lgas_by_state)
+  names(ll) <- s
+  ll
+}
+
 
 
 
@@ -157,7 +176,7 @@ new_states <- function(ss)
 }
 
 
-
+# LGAs ----
 
 #' Create on Object for Local Government Areas
 #'
@@ -190,58 +209,90 @@ new_states <- function(ss)
 #' how_many_lgas("Sokoto")
 #' how_many_lgas("Ekiti")
 #' 
+#' @importFrom cli cli_abort
+#' @importFrom cli cli_warn
 #' @importFrom utils data
 #' 
 #' @export
 lgas <- function(region = NA_character_, strict = FALSE, warn = TRUE) {
   data("lgas_nigeria", package = "naijR", envir = environment())
   
-  if (is.factor(region))
+  if (is.factor(region))  # TODO: Perhaps implement methods.
     region <- as.character(region)
   
   if (!is.character(region))
-    cli::cli_abort("Expected an object of type 'character'")
+    cli_abort("Expected an object of type 'character'")
   
-  if (strict && !any(region %in% .synonym_regions()))
-    cli::cli_abort("strict can only be set to TRUE where State/LGA syonnyms exist")
+  if (strict) {
+    not.synonymous <- !(region %in% lgas_like_states())
+    
+    if (any(not.synonymous)) {
+      nouns <- paste(region[not.synonymous], collapse = ", ")
+      verb <- 
+        sprintf(ngettext(sum(not.synonymous), "is %s", "are %ss"), "no LGA")
+      cli_abort("There {verb} {nouns} sharing State names")
+    }
+  }
   
   if (length(region) == 1L && is.na(region))
     return(new_lgas(lgas_nigeria$lga))
   
-  lst <- if (all(is_state(region)) && !strict) {
-    sl <- lapply(region, .subset_lgas_by_state)
-    names(sl) <- region
+  lst <- region
+  
+  if (all(is_state(region)) && !strict) {
+    lst <- .list_lgas_by_state(region)
     
     if (length(region) == 1L)
-      sl <- unname(unlist(sl))
-    
-    sl
+      lst <- unname(unlist(lst))
   }
   else if (all(is_lga(region))) {
-    lg <- region
-    region <- unique(with(lgas_nigeria, state[lga %in% lg]))
+    lst <- .list_states_by_lga(region)
+    lst.names <- names(lst)
+    stt.num <- vapply(lst, length, integer(1))
     
-    if ((numSt <- length(region)) > 1L)
-      cli::cli_warn("The LGA '{lg}' is found in {numSt} States")
-    
-    lg
+    if (any(stt.num > 1L)) {
+      multi <- which(stt.num > 1L)
+      
+      for (elem in multi) {
+        stts <- lst[[elem]]
+        nm <- lst.names[elem]
+        stts.msg <- paste(stts, collapse = ", ")
+        cli_warn("'{nm}' LGA is found in {length(stts)} States: {stts.msg}")
+      }
+    }
+    lst <- unique(lst.names)
+    region <- NULL
   }
   else if (.has_misspelt_lgas(region)) {
-    # Do not warn if this function is used inside a call to `fix_region`
-    funs <- as.list(sys.call(1))
-    funname <- as.character(funs[[1]])
-    
-    if (warn && isFALSE(identical(funname, 'fix_region')))
+    if (warn && isFALSE(.is_nested_fix_dont_warn()))
       .warn_on_misspelling('lga')
     
-    ret <- region
-    region <- as.null(region)  # set to NULL b/c of attribute in final output
-    ret
+    region <- NULL
   }
   else if (.all_are_not_lgas(region))
-    cli::cli_abort("None of the items is a valid LGA")
+    cli_abort("None of the items is a valid LGA")
   
   structure(new_lgas(lst), State = region)
+}
+
+
+
+
+
+# Do not warn if this function is used inside a call to `fix_region`
+.is_nested_fix_dont_warn <- function() {
+  check_nesting_func <- function(funcall) {
+    funs <- as.list(funcall)
+    any(nest.func %in% funs)
+  }
+  nest.func <- c("fix_region", "disambiguate_lga")
+  
+  ## Check to pre-empt any future removal of these functions
+  if (!sum(vapply(nest.func, exists, logical(1))))  
+    cli::cli_abort("The nesting function does not exist")
+  
+  found <- vapply(sys.calls(), check_nesting_func, logical(1))
+  any(found)
 }
 
 
@@ -300,6 +351,11 @@ lgas <- function(region = NA_character_, strict = FALSE, warn = TRUE) {
 
 
 
+# Sets the Levenshtein distance being used package-wide for functions that
+# carry out partial matching
+.pkgLevDistance <- function() {1L}
+
+
 
 .lgas_regex <- function(x) {
   stopifnot(is.character(x))
@@ -331,172 +387,6 @@ lgas_ng <- function(state = NA_character_) {
   .Deprecated("lgas")
   as.character(lgas(region = state))
 }
-
-
-
-
-# ---- Functions for coercion ----
-#
-
-#' Explicit coercion between State and LGA names
-#' 
-#' Takes the names of either States or LGAs and converts them explicitly into
-#' objects of the other class.
-#' 
-#' @details There are a few LGAs in the country that bear the same name
-#' as their State, and this could create some confusion when trying to use
-#' some of the the functionalities of this package. The States/LGAs in question 
-#' are \emph{Bauchi, Ebonyi, Ekity, Gombe, Katsina and Kogi}.
-#' 
-#' There as subtle differences in the way these functions handle data
-#' for States as against those for LGAs. In the case of States, an object of
-#' mode \code{character} is the preferred argument; alternatively, an object 
-#' of class \code{states} will serve as long as it has only one element. For 
-#' LGAs, the string is the preferred argument, since an object constructed
-#' with \code{lgas()} that is supplied a State's name as argument will
-#' list all the LGAs in that State. If a pre-formed \code{lgas} object is to be
-#' coerced to a \code{states} object, it should first be \code{unclass}ed or 
-#' explicitly coerced with \code{as.character}.
-#' 
-#' @rdname coercion
-#' 
-#' @param x A string representing either States or Local Government Areas 
-#' (LGAs) that dually name one of these administrative regions.
-#' 
-#' @return In the case of \code{as_state}, an object of class \code{states}; 
-#' with \code{as_lga}, an object of class \code{lgas}.
-#' 
-#' @examples 
-#' kt.st <- states("Katsina")  # Ensure this is a State, not an LGA.
-#' kt.lg <- suppressWarnings(as_lga(kt.st))
-#' is_state(kt.st)             # TRUE
-#' is_lga(kt.lg)               # TRUE
-#' 
-#' ## Where there's no ambiguity, it doesn't make sense to coerce
-#' ## This kind of operation ends with an error
-#' \dontrun{
-#' as_state("Kano")
-#' as_lga("Michika")
-#' }
-#' 
-#' 
-#' @export
-as_state <- function(x)
-{
-  states(.assert_if_coercible(x))
-}
-
-
-
-
-#' @rdname coercion
-#' 
-#' @export
-as_lga <- function(x) {
-  new_lgas(.assert_if_coercible(x))
-}
-
-
-
-#' @importFrom cli cli_abort
-.assert_if_coercible <- function(obj)
-{
-  if (is.factor(obj))
-    obj <- as.character(obj)
-  
-  if (!is.character(obj))
-    cli_abort("Expected a character vector")
-  
-  if (length(obj) > 1L)
-    cli_abort("To coerce a region with synonyms, use a vector of length 1L")
-  
-  if (!obj %in% .synonym_regions())
-    cli_abort("The object does not possess State/LGA synonyms")
-  
-  if (inherits(obj, "regions")) {
-    obj <- unclass(obj)
-    cli::cli_warn("Object was stripped down to mode 'character'")
-  }
-  
-  obj
-}
-
-
-
-
-## Returns those LGAs that share names with their State
-## e.g. Bauchi, Ekiti
-.synonym_regions <- function()
-{
-  ll <- unclass(lgas())
-  statelike <- which(is_state(ll))
-  unique(ll[statelike])
-}
-
-
-
-
-.states_with_shared_lgas <- function()
-{
-  list(
-    Nasarawa = c("Nasarawa", "Kano"),
-    Obi = c("Benue", "Nasarawa"),
-    Ifelodun = c("Kwara", "Osun"),
-    Irepodun = c("Kwara", "Osun"),
-    Surulere = c("Lagos", "Oyo"),
-    Bassa = c("Kogi", "Plateau")
-  )
-}
-
-
-
-
-
-## TODO: Export in next MINOR release.
-# Disambiguate Synonymous States and LGAs
-# 
-# Some LGAs in Nigeria bear the name of the States to which they belong to.
-# This function will apply an attribute to such an LGA to distinguish it from
-# its State.
-# 
-# @param x A character vector or \code{region} object of length 1L.
-# @param parent The name of the State to which the LGA is to belong to.
-# 
-# @details For \code{parent}, if it is not provided by the user, an interactive
-# prompt will be presented to the user to select the appropriate state - but 
-# only in interactive sessions; if run as a batch command, this functionality
-# will signal an error.
-#
-# @importFrom utils menu
-#' @importFrom cli cli_abort
-# @export
-disambiguate_lga <- function(x, parent = NULL)
-{
-  if (!is.character(x))
-    cli::cli_abort("{sQuote(deparse(quote(x)))} must be a character vector")
-  
-  if (length(x) > 1L)
-    cli_abort("Disambiguation is done only for single-length objects")
-  
-  if (!is_lga(x))
-    cli_abort("Expected an object of class 'lgas'")
-  
-  ss <- attr(x, "State")
-  
-  if (is.null(parent)) {
-    
-    if (!interactive())
-      cli_abort("Disambiguation can only be done in interactive mode")
-    
-    title <- sprintf("Which State does the LGA '%s' belong to?", x)
-    parent <-
-      ss[menu(ss, graphics = .Platform$OS.type == 'windows', title = title)]
-  }
-  
-  attr(x, "State") <- parent
-  x
-}
-
 
 
 
@@ -589,11 +479,6 @@ tail.regions <- function(x, ...)
 c.regions <- function(...)
 {
   ls <- unlist(list(...), use.names = FALSE)
-  #
-  # if (!Reduce(identical, lapply(all, class)))
-  #   stop("All objects must be of the same class")
-  # ls <- lapply(list(...), unclass)
-  # new_states(unlist(ls, use.names = FALSE))
   .chooseRegionsMethod(NextMethod(), ls)
 }
 

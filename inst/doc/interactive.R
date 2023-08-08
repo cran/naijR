@@ -1,8 +1,7 @@
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  results = 'hide'
+  comment = "#>"
 )
 
 ## ---- error = TRUE------------------------------------------------------------
@@ -14,34 +13,44 @@ fix_region("Legos Island")
 fix_region(c("Legos Island", "Amuwo-Odofin"))
 
 ## ---- error = TRUE------------------------------------------------------------
-fix_region(c("Legos Island", "Amuwo Odofin"))
+chars <- c("Legos Island", "Amuwo Odofin")
+fix_region(chars)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  fix_region(lgas(c("Legos Island", "Amuwo Odofin")))
+# Create an `lgas` object
+lgs <- lgas(c("Legos Island", "Amuwo Odofin"))
+fix_region(lgs)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  fix_region(lgas(c("Orange County", "Amuwo Odofin")))
+## -----------------------------------------------------------------------------
+fix_region(lgas(c("Legos Island", "Amuwo Odofin")))
 
-## ---- eval = 1----------------------------------------------------------------
-adamawa <- c("Fufore", "Demsa", "Machika", "Fufure", "Ganye", "Hong")
+## -----------------------------------------------------------------------------
+fix_region(lgas(c("Orange County", "Amuwo Odofin")))
+
+## -----------------------------------------------------------------------------
+mispelt.adamawa <- c("Fufure", "Demsa", "Machika", "Fufure", "Ganye", "Hong")
 
 # check for misspelt LGAs and, if necessary, attempt to fix
-if (!all(is_lga(adamawa)))
-  adamawa <- fix_region(adamawa)
-
-## ---- include = FALSE---------------------------------------------------------
-if (!all(is_lga(adamawa)))
-  adamawa <- suppressMessages(fix_region(adamawa))
+length(mispelt.adamawa)
+sum(is_lga(mispelt.adamawa))
+corrected.adamawa <- fix_region(mispelt.adamawa)
+sum(is_lga(corrected.adamawa))
 
 ## ---- eval=FALSE--------------------------------------------------------------
-#  adamawa <- fix_region(lgas(adamawa), interactive = TRUE)
+#  adamawa <- fix_region(lgas(corrected.adamawa), interactive = TRUE)
 
-## ----manual-fix, include=FALSE------------------------------------------------
-adamawa <- fix_region_manual(adamawa, "Machika", "Michika")
+## ----manual-fix, include = FALSE----------------------------------------------
+adamawa <- fix_region_manual(corrected.adamawa,
+                             wrong = "Machika",
+                             correct = "Michika")
+adamawa
 
-## ---- results = 'markup'------------------------------------------------------
+## ----confirm-fix--------------------------------------------------------------
+# Confirm that the spelling mistakes have been fixed.
 all(is_lga(adamawa))
 
-## ----manual-fix, eval = FALSE-------------------------------------------------
-#  adamawa <- fix_region_manual(adamawa, "Machika", "Michika")
+## ----manual-fix---------------------------------------------------------------
+adamawa <- fix_region_manual(corrected.adamawa,
+                             wrong = "Machika",
+                             correct = "Michika")
+adamawa
 

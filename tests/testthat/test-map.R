@@ -3,19 +3,7 @@
 # GPL-3 License
 # 
 # Copyright (c) 2020-2021 Victor Ordu
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>
+maptype <- "sf"
 
 test_that("Input is validated", {
   myerr1 <- "One or more elements of 'region' is not a Nigerian region"
@@ -39,29 +27,25 @@ test_that("Input is validated", {
   # TODO: Add test case for choropleths with too few regions
 })
 
-
 test_that("National outline map is plotted", {
-  expect_s3_class(map_ng("Nigeria", plot = FALSE), "map")
+  expect_s3_class(map_ng("Nigeria", plot = FALSE), maptype)
 })
 
 test_that("Geo-political Zones are plotted", {
   sw <- map_ng(region = states(gpz = 'sw'), plot = FALSE)
   
-  expect_length(sw$names, 6L)
-  expect_identical(sw$names, c("Ekiti", "Lagos", "Ogun", "Ondo", "Osun", "Oyo"))
+  expect_equal(nrow(sw), 6L)
+  expect_identical(sw$admin1Name, 
+                   c("Ekiti", "Lagos", "Ogun", "Ondo", "Osun", "Oyo"))
 })
 
 test_that("LGAs are plotted", {
-  expect_s3_class(map_ng(lgas("Akinyele"), plot = FALSE), "map")
-  expect_s3_class(map_ng(lgas("Owerri North"), plot = FALSE), "map")
+  expect_s3_class(map_ng(lgas("Akinyele"), plot = FALSE), maptype)
+  expect_s3_class(map_ng(lgas("Owerri North"), plot = FALSE), maptype)
 })
 
-
-
 set.seed(4)
-df <-
-  data.frame(region = states(all = TRUE), value = sample(0:6, 37, TRUE),
-             stringsAsFactors = FALSE)
+df <- data.frame(region = states(all = TRUE), value = sample(0:6, 37, TRUE))
 mp <- map_ng(plot = FALSE)
 brks <- seq(0, 6, 2)
 vals <- df$value
@@ -73,11 +57,9 @@ lso <-
     category = LETTERS[seq_len(length(brks))]
   )
 
-
-
 test_that("Choropleth mapping succeeds", {
   pop.groups <- c(1e6, 2.5e6, 5e6, 7.5e6, 1e7)
-  dat <- readRDS('data/pvc2015.rds')
+  dat <- readRDS("data/pvc2015.rds")
   baddat <- readRDS('data/pvc2015_badcolumn.rds')
   val <- dat$total.pop    # use name to test quasiquotation
   dat$alpha <- sample(LETTERS[1:5], nrow(dat), TRUE)  
@@ -126,12 +108,12 @@ test_that("Choropleth mapping succeeds", {
       breaks = pop.groups,
       plot = FALSE,
       fill = FALSE
-    ), 'map')
+    ), maptype)
   
   expect_s3_class(map_ng(data = dat,
                          x = alpha,
                          plot = FALSE),
-                  'map')
+                  maptype)
   
   ss <- states()
   expect_s3_class(map_ng(
@@ -142,7 +124,7 @@ test_that("Choropleth mapping succeeds", {
     show.text = FALSE,
     plot = FALSE
   ),
-  'map')
+  maptype)
   
   expect_s3_class(map_ng(
     region = ss,
@@ -150,18 +132,18 @@ test_that("Choropleth mapping succeeds", {
     col = "red",
     show.text = FALSE,
     plot = FALSE
-  ), "map")
+  ), maptype)
 })
-
 
 test_that("Draw choropleth automatically with 2-column data frames", {
   ds <- data.frame(state = states(), value = sample(LETTERS[1:5], 37, TRUE))
   dl <- data.frame(LGA = lgas(), value = sample(LETTERS[1:5], 774, TRUE))
   
-  for (df in list(ds, dl)) 
-    expect_s3_class(try(map_ng(data = df, plot = FALSE)), "map")
+  expect_s3_class(map_ng(data = ds, plot = FALSE), maptype)
+  expect_s3_class(suppressWarnings(map_ng(data = dl, plot = FALSE)), maptype)
+  expect_warning(map_ng(data = dl, plot = FALSE),
+                 "Duplicated LGAs found, but may or may not need a review")
 })
-
 
 test_that("Choropleth colours can be controlled at interface", {
   dat <- readRDS('data/pvc2015.rds')
@@ -175,7 +157,7 @@ test_that("Choropleth colours can be controlled at interface", {
     col = NULL
   ))
   
-  mm <- 'map'
+  mm <- maptype
   
   expect_s3_class(eval_tidy(func), mm)
   
@@ -185,36 +167,6 @@ test_that("Choropleth colours can be controlled at interface", {
   func$col <- 'blue'
   expect_s3_class(eval_tidy(func), mm)
 })
-
-
-
-
-test_that("'map' object is properly created", {
-  mp1 <- map_ng(plot = FALSE)
-  mp2 <- suppressWarnings(map_ng(show.neighbours = TRUE, plot = FALSE))
-  mm <- 'map'
-  rng <- c(2.668534, 14.678820, 4.273007, 13.894420)
-  
-  expect_s3_class(mp1, mm)
-  expect_type(mp1, 'list')
-  expect_s3_class(mp1, mm)
-  expect_length(mp1, 4L)
-  expect_identical(names(mp1), c("x", "y", 'range', 'names'))
-  expect_length(mp1$names, 41)
-  expect_true(identical(mp1$x, mp2$x))
-  expect_true(identical(mp1$y, mp2$y))
-  expect_false(length(mp1$x) < length(mp2$x))
-  expect_false(length(mp1$y) < length(mp2$y))
-  expect_true(all(mp1$x %in% mp2$x))
-  expect_true(all(mp1$y %in% mp2$y))
-  expect_equal(signif(mp1$range, 7), rng)
-  expect_equal(signif(mp2$range, 7), rng)
-  for (i in states()) 
-    expect_match(mp2$names, i, all = FALSE)
-})
-
-
-
 
 test_that("Points are mapped", {
   x <- c(3.000, 4.000, 6.000)
@@ -228,9 +180,6 @@ test_that("Points are mapped", {
                "Expected a character vector as 'region'")
 })
 
-
-
-
 test_that("Factors can draw choropleth", {
   getSmpl <- function(seed) { 
     set.seed(seed)
@@ -242,63 +191,53 @@ test_that("Factors can draw choropleth", {
     runif(37, max = 100)
   }
   
-  mapClass <- 'map'
   Fac <- ordered(getSmpl(2))
-  expect_s3_class(map_ng(x = Fac, plot = FALSE), mapClass)
+  expect_s3_class(map_ng(x = Fac, plot = FALSE), maptype)
   
   Char <- getSmpl(5)
-  expect_s3_class(map_ng(x = Char, plot = FALSE), mapClass)
+  expect_s3_class(map_ng(x = Char, plot = FALSE), maptype)
   
   sss <- states()
   dd <- data.frame(region = sss, Col = Fac, stringsAsFactors = FALSE)
-  expect_s3_class(map_ng(data = dd, x = Col, plot = FALSE), mapClass)
+  expect_s3_class(map_ng(data = dd, x = Col, plot = FALSE), maptype)
   
-  expect_s3_class(map_ng(sss, x = Fac, plot = FALSE), mapClass)
-  expect_s3_class(map_ng(sss, x = Char, plot = FALSE), mapClass)
+  expect_s3_class(map_ng(sss, x = Fac, plot = FALSE), maptype)
+  expect_s3_class(map_ng(sss, x = Char, plot = FALSE), maptype)
   
   Int <- sample(1L:5L, 37, TRUE)
   expect_error(map_ng(sss, x = Int, plot = FALSE),
                'Breaks were not provided for the categorization of a numeric type')
-  expect_s3_class(map_ng(sss, x = as.factor(Int), plot = FALSE), mapClass)
+  expect_s3_class(map_ng(sss, x = as.factor(Int), plot = FALSE), maptype)
   
   brks <- c(0, 40, 60, 100)
-  expect_s3_class(map_ng(sss, x = getDblSmpl(), breaks = brks, plot = FALSE), mapClass)
+  expect_s3_class(map_ng(sss, x = getDblSmpl(), breaks = brks, plot = FALSE), maptype)
   
   dd$dblCol <- getDblSmpl()
   qq <- quote(map_ng(data = dd, x = dblCol, breaks = brks, plot = FALSE))
-  expect_s3_class(eval(qq), mapClass)
+  expect_s3_class(eval(qq), maptype)
   qq$categories <- c("Low", "Medium", "High")
-  expect_s3_class(eval(qq), mapClass)
+  expect_s3_class(eval(qq), maptype)
   qq$col <- "green"
-  expect_s3_class(eval(qq), mapClass)
+  expect_s3_class(eval(qq), maptype)
 })
 
-
-
-
 test_that("Parameters passed via ellipsis work seamlessly", {
-  mm <- 'map'
-  
-  expect_s3_class(map_ng(lwd = 2, plot = FALSE), mm)
-  expect_s3_class(map_ng(lwd = 2, col = 2, plot = FALSE), mm)
+  expect_s3_class(map_ng(lwd = 2, plot = FALSE), maptype)
+  expect_s3_class(map_ng(lwd = 2, col = 2, plot = FALSE), maptype)
   expect_error(map_ng(NULL, lwd = 2, col = 2, plot = FALSE), 
                "Expected a character vector as 'region'")
 })
 
-
-
-
 test_that("All individual plain State maps can be drawn", {
   for (s in states())
-    expect_s3_class(map_ng(s, plot = FALSE), "map")
+    expect_s3_class(map_ng(s, plot = FALSE), maptype)
 })
-
 
 test_that("All LGAs within a given State are drawn", {
-  for (s in states())
-    expect_s3_class(map_ng(lgas(s), plot = FALSE), "map")
+  for (s in states()) {
+    expect_s3_class(map_ng(lgas(s), plot = FALSE), maptype)
+  }
 })
-
 
 test_that("All individual LGA maps can be drawn", {
   for (s in states()) {
@@ -309,58 +248,38 @@ test_that("All individual LGA maps can be drawn", {
       state <- attr(x, "State")
 
       if (length(state) > 1L)
-        x <- disambiguate_lga(x, parent = s)
+        x <- disambiguate_lga(x, state = s)
 
-      expect_s3_class(map_ng(x, plot = FALSE), "map")
+      expect_s3_class(map_ng(x, plot = FALSE), maptype)
     }
   }
 })
 
-
-
 test_that("Map LGAs together as individual blocs", {
-  abLga <- lgas("Abia")
-  expect_s3_class(map_ng(abLga, plot = FALSE), "map")
-  
-  ## Do actual plot
+  abiaLga <- lgas("Abia")
   testMap <- "data/test-map.png"
+  
   if (file.exists(testMap))
     file.remove(testMap)
+  
   png(testMap)
-  val <- try(map_ng(abLga), silent = TRUE)
+  val <- try(map_ng(abiaLga), silent = TRUE)
   dev.off()
   
+  expect_s3_class(map_ng(abiaLga, plot = FALSE), maptype)
   expect_false(inherits(val, "try-error"))
   expect_true(file.exists(testMap))
+  
+  file.remove(testMap)
 })
-
-
-
-test_that("Number of LGAs matches the number extracted for mapping", {
-  # This test case is created for bug fix that involved the creation
-  # of wrong LGA coordinates for Borno State -> Kagarko is included
-  for (i in states(all = FALSE)) {
-    lg <- lgas(i)
-    mplg <- map_ng(lg, plot = FALSE)$names
-    
-    rgx <- .regex_duplicated_poly(lg)
-    expect_match(mplg, rgx)
-    # expect_true(all(mplg %in% lg))
-    # expect_true(all(lg %in% mplg))
-  }
-})
-
-
-
 
 test_that("Choropleth map can be formed with excluded regions", {
-  mapClass <- "map"
   colpal <- "YlOrRd"
   excluded.reg <- c("Abia", "Jigawa")
-  green <- "green"
+  exclusion.color <- "green"
   d <- data.frame(state = states(),
                   total = sample(LETTERS[1:4], 37, TRUE))
-  
+
   expect_s3_class(
     map_ng(
       data = d,
@@ -369,49 +288,49 @@ test_that("Choropleth map can be formed with excluded regions", {
       excluded = excluded.reg,
       plot = FALSE
     ),
-    mapClass
+    maptype
   )
-  
+
   expect_s3_class(
     map_ng(
       data = d,
       x = total,
       col = colpal,
       excluded = excluded.reg,
-      exclude.fill = green,
+      exclude.fill = exclusion.color,
       plot = FALSE
     ),
-    mapClass
+    maptype
   )
-  
+
   expect_s3_class(
     map_ng(
       data = d,
       x = total,
       col = colpal,
       excluded = excluded.reg,
-      exclude.fill = green,
+      exclude.fill = exclusion.color,
       leg.title = "Legend title",
       plot = FALSE
     ),
-    mapClass
+    maptype
   )
-  
+
   expect_error(
     map_ng(
       data = d,
       x = total,
       col = colpal,
       excluded = excluded.reg,
-      exclude.fill = c(green, "grey"),
+      exclude.fill = c(exclusion.color, "grey"),
       leg.title = "Legend title",
       plot = FALSE
     ),
-    paste("Only one colour can be used to denote regions excluded", 
+    paste("Only one colour can be used to denote regions excluded",
           "from the choropleth colouring scheme"),
     fixed = TRUE
   )
-  
+
   expect_error(
     map_ng(
       data = d,
@@ -426,7 +345,7 @@ test_that("Choropleth map can be formed with excluded regions", {
           "i.e. an element of the built-in set 'colours()'"),
     fixed = TRUE
   )
-  
+
   expect_error(
     map_ng(
       data = d,
@@ -436,80 +355,47 @@ test_that("Choropleth map can be formed with excluded regions", {
       exclude.fill = 99L,
       leg.title = "Legend title",
       plot = FALSE
-    ),
-    "Colour indicators of type 'integer' are not supported",
-    fixed = TRUE
+    )
   )
 })
 
-
-
-
-# test_that("Mapping of adjoining States", {
-#   expect_error(map_ng(lgas(c("Imo", "Abia"))), 
-#                "LGA-level maps for adjoining States are not yet supported")
-# })
-
-
-
 test_that(
-  "Mapping fails when choropleth is plotted with repetitive State levels",
+"Mapping fails when choropleth is plotted with repetitive State levels",
   {
     data("esoph")
     set.seed(87)
-    ng.esoph <-  
-      transform(esoph, state = sample(states(), nrow(esoph), TRUE))
-    
-    expect_error(map_ng(data = ng.esoph, x = agegp, plot = FALSE), 
-                 "argument lengths differ")
-    
+    ng.esoph <- transform(esoph, state = sample(states(), nrow(esoph), TRUE))
+    expect_error(map_ng(data = ng.esoph, x = agegp, plot = FALSE),
+                 "Data cannot be matched with map. Aggregate them by States")
+
     # One record per State (although there are missing states)
     ng.esoph <- ng.esoph[!duplicated(ng.esoph$state), ]
-    
+
     expect_s3_class(
       map_ng(ng.esoph$state, x = ng.esoph$agegp, plot = FALSE),
-      "map"
+      maptype
     )
     expect_s3_class(
       map_ng(data = ng.esoph, x = agegp, plot = FALSE),
-      "map"
-    ) 
+      maptype
+    )
   })
 
 
-test_that("Deprecation messages ahead of next release (current - 0.4.4)", {
-  d <- data.frame(state = states(), value = sample(LETTERS[1:5], 37, TRUE))
-  # 
-  # rlang::with_options(lifecycle_verbosity = "warning", {
-  #   expect_warning(map_ng(data = d, leg.x = 8L, plot = FALSE))
-  # })
-  # 
-  # rlang::with_options(lifecycle_verbosity = "warning", {
-  #   expect_warning(map_ng(data = d, leg.y = 94L, plot = FALSE))
-  # }) 
-  # 
-  # rlang::with_options(lifecycle_verbosity = "warning", {
-  #   expect_warning(map_ng(data = d, leg.orient = "horiz", plot = FALSE))
-  # })
-})
-
-
-test_that("Labels are show", {
-  expect_s3_class(map_ng(show.text = TRUE, plot = FALSE), "map")
+test_that("Labels are shown", {
+  expect_s3_class(map_ng(show.text = TRUE, plot = FALSE), maptype)
   expect_s3_class(map_ng(states(gpz = "sw"), show.text = TRUE, plot = FALSE),
-                  "map")
+                  maptype)
   expect_s3_class(map_ng(
     states(gpz = "sw"),
     show.text = TRUE,
     col = 4,
     plot = FALSE
-  ), "map")
-  
+  ), maptype)
 })
-
 
 test_that("Labels can be resized", {
   # expect_error(map_ng(show.text = TRUE, cex = ".75")) 
-  expect_s3_class(map_ng(show.text = TRUE, plot = FALSE), "map")
-  expect_s3_class(map_ng(show.text = TRUE, cex = .5, plot = FALSE), "map")
+  expect_s3_class(map_ng(show.text = TRUE, plot = FALSE), maptype)
+  expect_s3_class(map_ng(show.text = TRUE, cex = .5, plot = FALSE), maptype)
 })
