@@ -2,7 +2,7 @@
 #
 # GPL-3 License
 #
-# Copyright (C) 2019-2022 Victor Ordu.
+# Copyright (C) 2019-2023 Victor Ordu.
 #
 #
 globalVariables("states_nigeria")
@@ -16,11 +16,6 @@ globalVariables("states_nigeria")
 # which doesn't belong to any zone is denoted
 # by its own abbreviation and its element is of
 # length 1L.
-stateList <- function()
-{
-  data("states_nigeria", package = "naijR", envir = environment())
-  with(states_nigeria, split(state, gpz))
-}
 
 
 
@@ -37,22 +32,6 @@ lgas_like_states <- function()
 
 
 
-states_with_shared_lgas <- function()
-{
-  findStates <- function(dup.lga) {
-    patt <- paste0("^", dup.lga, "$")
-    index <- grep(patt, lgas, fixed = TRUE)
-    lgas_nigeria$state[index]
-  }
-  lgas <- lgas_nigeria$lga
-  lganames <- lgas[duplicated(lgas)]
-  sapply(lganames, findStates, simplify = FALSE)
-}
-
-
-
-
-
 
 ## Messages -----------------------------------------------------------------
 country_name <- function()
@@ -63,7 +42,7 @@ country_name <- function()
 
 
 
-.arg_str <- function(arg)
+arg_str <- function(arg)
 {
   deparse(substitute(arg))
 }
@@ -71,7 +50,7 @@ country_name <- function()
 
 
 
-.first_elem_warn <- function(arg)
+first_elem_warn <- function(arg)
 {
   stopifnot(exprs = {is.character(arg) && length(arg) == 1L})
   sprintf("Only the first element of '%s' was used", arg)
@@ -82,7 +61,7 @@ country_name <- function()
 
 .next_minor_version <- function()
 {
-  values <- unlist(packageVersion("naijR"))
+  values <- unlist(utils::packageVersion("naijR"))
   nextver <- paste(values[1], values[2] + 1, "0", sep = ".")
   numeric_version(nextver)
 }
@@ -92,4 +71,15 @@ country_name <- function()
 
 .deprec_msg <- function(arg) {
   sprintf("map_ng(%s = )", deparse(substitute(arg)))
+}
+
+
+
+
+# Checks whether a logical argument is correctly passed
+assert.lgl.arg <- function(arg) {
+  argname <- deparse(substitute(arg))
+  
+  if (!is.logical(arg) || is.na(arg))
+    cli_abort("'{argname}' should be TRUE/FALSE")
 }

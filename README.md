@@ -12,9 +12,11 @@ status](https://www.r-pkg.org/badges/version/naijR)](https://cran.r-project.org/
 [![Codecov test
 coverage](https://codecov.io/gh/BroVic/naijR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/BroVic/naijR?branch=master)
 [![R build
-status](https://github.com/BroVic/naijR/workflows/R-CMD-check/badge.svg)](https://github.com/BroVic/naijR/actions)
+status](https://github.com/ropensci/naijR/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/naijR/actions)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Status at rOpenSci Software Peer
+Review](https://badges.ropensci.org/600_status.svg)](https://github.com/ropensci/software-review/issues/600)
 <!-- badges: end -->
 
 The goal of **naijR** is to make it easier for R users to work with data
@@ -47,15 +49,10 @@ library(naijR, quietly = TRUE)
 ss <- states()
 head(ss)
 Abia
-
 Adamawa
-
 Akwa Ibom
-
 Anambra
-
 Bauchi
-
 Bayelsa
 cat(sprintf("\n...but Nigeria has %i States.", length(ss)))
 
@@ -67,15 +64,10 @@ States from a given geo-political zone can also be selected:
 ``` r
 states(gpz = "ne")  # i.e. North-East
 Adamawa
-
 Bauchi
-
 Borno
-
 Gombe
-
 Taraba
-
 Yobe
 ```
 
@@ -89,58 +81,32 @@ of Local Government Areas within a given State:
 ``` r
 lgas("Imo")
 Aboh Mbaise
-
 Ahiazu Mbaise
-
 Ehime Mbano
-
-Ezinihitte
-
-Ideato North
-
-Ideato South
-
 Ihitte/Uboma
-
-Ikeduru
-
-Isiala Mbano
-
+Ideato North
+Ideato South
+Ezinihitte-Mbaise
 Isu
-
-Mbaitoli
-
-Ngor Okpala
-
-Njaba
-
-Nkwerre
-
-Nwangele
-
-Obowo
-
 Oguta
-
-Ohaji/Egbema
-
-Okigwe
-
-Orlu
-
+Obowo
+Nwangele
+Njaba
+Ngor Okpala
+Mbaitoli
+Nkwerre
 Orsu
-
+Orlu
+Onuimo
+Okigwe
+Ohaji/Egbema
 Oru East
-
-Oru West
-
+Isiala Mbano
+Ikeduru
 Owerri Municipal
-
-Owerri North
-
 Owerri West
-
-Unuimo
+Owerri North
+Oru West
 ```
 
 To list all the LGAs in Nigeria, call the same function without any
@@ -220,15 +186,13 @@ install.packages("naijR")
 ```
 
 The development version can be obtained from
-[GitHub](https://github.com/BroVic/naijR) with:
+[GitHub](https://github.com/ropensci/naijR) with:
 
 ``` r
 # install.packages("pak")  # if necessary
-pak::pkg_install("BroVic/naijR")
+pak::pkg_install("ropensci/naijR")
 ```
 
-## Feedback/Contribution
-
-Contributions are welcome and pull requests for R code or documentation
-will be gladly entertained. For bug reports or feature requests, kindly
-submit an [issue](https://github.com/BroVic/naijR/issues/new).
+Please note that this package is released with a [Contributor Code of
+Conduct](https://ropensci.org/code-of-conduct/). By contributing to this
+project, you agree to abide by its terms.

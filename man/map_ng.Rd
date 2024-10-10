@@ -18,11 +18,8 @@ map_ng(
   show.neighbours = FALSE,
   show.text = FALSE,
   legend.text = NULL,
-  leg.x = deprecated(),
-  leg.y = deprecated(),
   leg.title,
   plot = TRUE,
-  leg.orient = deprecated(),
   ...
 )
 }
@@ -33,7 +30,8 @@ States or Local Government Areas.}
 \item{data}{An object containing data, principally the variables required to
 plot in a map.}
 
-\item{x, y}{Numeric object or factor (or coercible to one). See \emph{Details}.}
+\item{x, y}{Numeric object or factor (or coercible to one). See 
+\emph{Details}.}
 
 \item{breaks}{Numeric. A vector of length >= 1. If a single value i.e.
 scalar, it denotes the expected number of breaks. Internally, the function
@@ -61,15 +59,10 @@ neighbouring regions/countries.}
 (actual strings for the legend). The latter will override whatever is 
 provided by \code{categories}, giving the user additional control.}
 
-\item{leg.x, leg.y}{Numeric. Position of the legend (deprecated).}
-
 \item{leg.title}{String. The legend title. If missing, a default value is
 acquired from the data. To turn off the legend title, pass \code{NULL}.}
 
 \item{plot}{Logical. Turn actual plotting of the map off or on.}
-
-\item{leg.orient}{The orientation of the legend i.e. whether horizontal or
-vertical (deprecated).}
 
 \item{...}{Further arguments passed to \code{\link[sf]{plot}}}
 }
@@ -83,10 +76,11 @@ Maps of the Federal Republic of Nigeria that are based on the basic
 plotting idiom utilised by \link[maps:map]{maps:map} and its variants.
 }
 \details{
-The default value for \code{region} is to print all State boundaries.
+The default value for \code{region} is to print all State 
+boundaries.
 \code{data} enables the extraction of data for plotting from an object
-of class \code{data.frame}. Columns containing regions (i.e. States as well as
-supported sub-national jurisdictions) are identified. The argument also
+of class \code{data.frame}. Columns containing regions (i.e. States as well
+as supported sub-national jurisdictions) are identified. The argument also
 provides context for quasiquotation when providing the \code{x} and
 \code{y} arguments.
 
@@ -119,7 +113,10 @@ palettes, especially for more advanced use, review
 \dontrun{
 map_ng() # Draw a map with default settings
 map_ng(states("sw"))
-map_ng("Kano")
-}
+map_ng("Kano")}
 
+}
+\seealso{
+\code{vignette("nigeria-maps")} for additional ways to use this 
+function.
 }

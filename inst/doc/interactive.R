@@ -1,10 +1,10 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 library(naijR)
 
 fix_region("Legos Island")
@@ -12,7 +12,7 @@ fix_region("Legos Island")
 ## -----------------------------------------------------------------------------
 fix_region(c("Legos Island", "Amuwo-Odofin"))
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 chars <- c("Legos Island", "Amuwo Odofin")
 fix_region(chars)
 
@@ -35,7 +35,7 @@ sum(is_lga(mispelt.adamawa))
 corrected.adamawa <- fix_region(mispelt.adamawa)
 sum(is_lga(corrected.adamawa))
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  adamawa <- fix_region(lgas(corrected.adamawa), interactive = TRUE)
 
 ## ----manual-fix, include = FALSE----------------------------------------------

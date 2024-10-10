@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -18,9 +18,9 @@ map_ng(lgas())
 ## ----south-west, warning=FALSE------------------------------------------------
 map_ng(states(gpz = "sw"), show.text = TRUE, col = 4)
 
-## ---- singleton, warning=FALSE------------------------------------------------
+## ----singleton, warning=FALSE-------------------------------------------------
 kk <- "Kebbi"
-map_ng(kk, col = 6, fill = TRUE, title = paste(kk, "State"))
+map_ng(kk, col = 6, title = paste(kk, "State"))
 
 ## ----dud-dataframe------------------------------------------------------------
 # Create variables
@@ -45,7 +45,13 @@ map_ng(region = states(), x = var)
 nn <- runif(numStates, max = 100)  # random real numbers ranging from 0 - 100
 bb <- c(0, 40, 60, 100)
 
-map_ng(region = states(), x = nn, breaks = bb, col = 'YlOrRd', show.text = FALSE)
+map_ng(
+  region = states(),
+  x = nn,
+  breaks = bb,
+  col = 'YlOrRd',
+  show.text = FALSE
+)
 
 ## ----good-legend--------------------------------------------------------------
 map_ng(
