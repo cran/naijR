@@ -39,7 +39,9 @@ map_ng(data = dd)
 map_ng(region = states(), x = vv, col = "red", show.text = FALSE)
 
 ## ----error-map, error=TRUE----------------------------------------------------
+try({
 map_ng(region = states(), x = var)
+})
 
 ## ----numeric-choropleth-------------------------------------------------------
 nn <- runif(numStates, max = 100)  # random real numbers ranging from 0 - 100
@@ -70,5 +72,7 @@ y <- c(8.000, 9.000, 9.300, 10.432, 8.472, 6.889, 9.654)
 map_ng("Nigeria", x = x, y = y)
 
 ## ----out-of-bounds, error=TRUE------------------------------------------------
+try({
 map_ng("Kwara", x = x, y = y)
+})
 

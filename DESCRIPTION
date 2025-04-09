@@ -1,7 +1,7 @@
 Package: naijR
 Type: Package
 Title: Operations to Ease Data Analyses Specific to Nigeria
-Version: 0.6.1
+Version: 0.6.2
 Depends: R (>= 3.6)
 Imports: RColorBrewer (>= 1.1.2), cli (>= 3.6.0), lifecycle (>= 0.2.0),
         grDevices, graphics, mapdata (>= 2.3.0), maps (>= 3.3.0), rlang
@@ -35,14 +35,14 @@ Description: A set of convenience functions as well as geographical/political
 License: GPL-3
 LazyData: TRUE
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 RdMacros: lifecycle
 URL: https://docs.ropensci.org/naijR/
 BugReports: https://github.com/ropensci/naijR/issues
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2024-10-10 19:48:07 UTC; Admn
+Packaged: 2025-04-09 16:38:18 UTC; user
 Author: Victor Ordu [aut, cre] (<https://orcid.org/0000-0003-3716-0668>),
   Laura DeCicco [ctb],
   Emily Riederer [rev],
@@ -50,4 +50,4 @@ Author: Victor Ordu [aut, cre] (<https://orcid.org/0000-0003-3716-0668>),
   Cagri Alican [rev]
 Maintainer: Victor Ordu <victorordu@outlook.com>
 Repository: CRAN
-Date/Publication: 2024-10-10 20:10:02 UTC
+Date/Publication: 2025-04-09 20:20:02 UTC
